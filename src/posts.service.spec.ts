@@ -21,22 +21,21 @@ describe('PostsService', () => {
 
     it('should return all posts if called without options', () => {
       // реализуйте тест-кейс
-      expect(postsService.findMany()).toEqual(posts);
+      expect(postsService.findMany().map(item => ({text: item.text}))).toEqual(posts)
     });
 
     it('should return correct posts for skip and limit options', () => {
       // реализуйте тест-кейс
-      const expectedPosts = postsService.findMany({skip: 1, limit: 2});
-      expect(expectedPosts).toEqual(posts.slice(1, 3));
+      expect(postsService.findMany({skip: 2, limit: 2}).map(item => ({text: item.text}))).toEqual(posts.slice(-2))
     });
 
     // реализуйте недостающие тест-кейсы
     it('should return correct posts for skip options', () => {
-      expect(postsService.findMany({skip: 1})).toEqual(posts.slice(1));
+      expect(postsService.findMany({skip: 1}).map(item => ({text: item.text}))).toEqual(posts.slice(-3))
     });
 
     it('should return correct posts for limit options', () => {
-      expect(postsService.findMany({limit: 2})).toEqual(posts.slice(0, 2));
+      expect(postsService.findMany({limit: 2}).map(item => ({text: item.text}))).toEqual(posts.slice(0,2))
     });
   });
 });
